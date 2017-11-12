@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,19 +24,23 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pXE-ML-v6a">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="IgJ-LB-nSg"/>
                                     <barButtonItem systemItem="camera" id="SrC-YX-VPo">
                                         <connections>
                                             <action selector="pickAnImageFromCameraAction:" destination="BYZ-38-t0r" id="yzP-D1-Nnd"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="CYC-4v-hPD"/>
-                                    <barButtonItem title="Album" id="Rwm-no-eMm">
+                                    <barButtonItem image="albums" id="Rwm-no-eMm">
                                         <connections>
                                             <action selector="pickAnImageFromAlbumAction:" destination="BYZ-38-t0r" id="seV-F2-p0L"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="G80-GN-82q"/>
+                                    <barButtonItem image="settings" id="GWH-oX-gwj">
+                                        <connections>
+                                            <segue destination="gse-g3-1WS" kind="presentation" identifier="settingsSegue" id="tkm-eP-she"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xdY-zd-bko">
@@ -67,14 +70,11 @@
                                                 <action selector="shareAction:" destination="BYZ-38-t0r" id="RZW-Yh-hKB"/>
                                             </connections>
                                         </barButtonItem>
-                                        <rightBarButtonItems>
-                                            <barButtonItem title="Item" image="settings" id="GWH-oX-gwj"/>
-                                            <barButtonItem systemItem="cancel" id="cxH-VS-p27">
-                                                <connections>
-                                                    <action selector="cancelAction:" destination="BYZ-38-t0r" id="yLu-oG-aRb"/>
-                                                </connections>
-                                            </barButtonItem>
-                                        </rightBarButtonItems>
+                                        <barButtonItem key="rightBarButtonItem" image="cancel" id="cxH-VS-p27">
+                                            <connections>
+                                                <action selector="cancelAction:" destination="BYZ-38-t0r" id="yLu-oG-aRb"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -112,8 +112,18 @@
             </objects>
             <point key="canvasLocation" x="38.23088455772114" y="32.799999999999997"/>
         </scene>
+        <!--SelectionViewController-->
+        <scene sceneID="o8I-bF-2ev">
+            <objects>
+                <viewControllerPlaceholder storyboardName="settings" referencedIdentifier="SelectionViewController" id="gse-g3-1WS" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xrS-Hd-0hV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="666" y="-255"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="albums" width="30" height="30"/>
+        <image name="cancel" width="30" height="30"/>
         <image name="settings" width="30" height="30"/>
     </resources>
 </document>

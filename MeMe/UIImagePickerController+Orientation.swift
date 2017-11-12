@@ -10,11 +10,11 @@ import UIKit
 
 //Created this extension to handle imagepicker controller being portrait-only
 extension UIImagePickerController {
-    
+
     open override var shouldAutorotate: Bool {
         return true
     }
-    
+
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .allButUpsideDown
     }
