@@ -12,7 +12,6 @@ import Photos
 class ViewController: UIViewController {
 
     // MARK: Properties
-
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
@@ -181,7 +180,7 @@ class ViewController: UIViewController {
     // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "settingsSegue" {
-            let settingsController = segue.destination as? SelectionViewController
+            let settingsController = segue.destination as? SettingsTableViewController
             settingsController?.delegate = self
         }
     }
@@ -215,8 +214,8 @@ extension ViewController: UINavigationControllerDelegate, UIImagePickerControlle
     }
 }
 
-// MARK: SelectionViewControllerDelegate
-extension ViewController: SelectionViewControllerDelegate {
+// MARK: SettingsTableViewControllerDelegate
+extension ViewController: SettingsTableViewControllerDelegate {
     func didSelect(font: UIFont?) {
         if let font = font {
             topTextField.font = font

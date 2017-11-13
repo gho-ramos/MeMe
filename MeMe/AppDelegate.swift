@@ -32,5 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        UserDefaults.standard.removeObject(forKey: NSAttributedStringKey.font.rawValue)
+        UserDefaults.standard.synchronize()
     }
 }

@@ -112,13 +112,13 @@
             </objects>
             <point key="canvasLocation" x="38.23088455772114" y="32.799999999999997"/>
         </scene>
-        <!--SelectionViewController-->
+        <!--SettingsTableViewController-->
         <scene sceneID="o8I-bF-2ev">
             <objects>
-                <viewControllerPlaceholder storyboardName="settings" referencedIdentifier="SelectionViewController" id="gse-g3-1WS" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Settings" referencedIdentifier="SettingsTableViewController" id="gse-g3-1WS" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xrS-Hd-0hV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="666" y="-255"/>
+            <point key="canvasLocation" x="682" y="-255"/>
         </scene>
     </scenes>
     <resources>
