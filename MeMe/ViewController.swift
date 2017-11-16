@@ -59,10 +59,13 @@ class ViewController: UIViewController {
     }
 
     // MARK: Private Methods
+
+    // check if there is a image on our picker view and enable/disable the sharebutton
     fileprivate func checkShareButtonState() {
         shareButton.isEnabled = imagePickerView.image != nil
     }
 
+    // set/reset the textfields default configurations
     fileprivate func defaultTextSetup() {
         topTextField.text = "TOP"
         botTextField.text = "BOTTOM"
@@ -73,6 +76,8 @@ class ViewController: UIViewController {
         botTextField.defaultTextAttributes = attributes
     }
 
+
+    // Generate a meme from the image and texts on the current viewcontroller
     fileprivate func generateMemedImage() -> UIImage {
 
         navigationBar.isHidden = true
@@ -89,6 +94,7 @@ class ViewController: UIViewController {
         return memedImage
     }
 
+    // save the meme and verify the share button state
     fileprivate func save() {
         _ = Meme(topText: topTextField.text!,
                  bottomText: botTextField.text!,
@@ -98,6 +104,7 @@ class ViewController: UIViewController {
         checkShareButtonState()
     }
 
+    // asks user's authorization to use the phone's photo library
     fileprivate func presentImagePickerController(forSource sourceType: UIImagePickerControllerSourceType) {
         PHPhotoLibrary.requestAuthorization { (authorization) in
             switch authorization {
@@ -117,6 +124,7 @@ class ViewController: UIViewController {
             }
         }
     }
+
     // Creates a pickerview and set the fontDelegate to control the actions of the pv
     // Crates an alertviewcontroller and uses it as a placeholder to our pickerview
     fileprivate func presentPickerView() {
@@ -148,6 +156,8 @@ class ViewController: UIViewController {
     // MARK: Actions
 
     @IBAction func showFontSelector(_ sender: Any?) {
+        // load fonts for the font delegate and complete presenting the selection pickerview
+        // on a callback
         fontSelector.loadFonts {
             self.presentPickerView()
         }
