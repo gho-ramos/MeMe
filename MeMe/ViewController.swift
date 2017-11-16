@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var navigationBar: UINavigationBar!
 
     fileprivate var memedImage: UIImage?
+    fileprivate var pickerView: UIPickerView?
+    fileprivate let fontSelector = FontSelector()
 
     override var prefersStatusBarHidden: Bool { return true }
 
@@ -38,6 +40,8 @@ class ViewController: UIViewController {
 
         topTextField.textAlignment = .center
         botTextField.textAlignment = .center
+
+        fontSelector.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -113,18 +117,51 @@ class ViewController: UIViewController {
             }
         }
     }
+    // Creates a pickerview and set the fontDelegate to control the actions of the pv
+    // Crates an alertviewcontroller and uses it as a placeholder to our pickerview
+    fileprivate func presentPickerView() {
+        let pickerHeight = view.frame.height / 4
+        let pickerWidth = view.frame.width
+        pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: pickerWidth, height: pickerHeight))
+
+        pickerView!.clipsToBounds = true
+        pickerView!.delegate = fontSelector
+        pickerView!.dataSource = fontSelector
+
+        pickerView!.reloadAllComponents()
+
+        let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+
+        alertController.addAction(action)
+        alertController.view.addSubview(pickerView!)
+        NSLayoutConstraint.activate([
+            alertController.view.topAnchor.constraint(equalTo: pickerView!.topAnchor, constant: 40),
+            alertController.view.bottomAnchor.constraint(equalTo: pickerView!.bottomAnchor, constant: 40)
+        ])
+
+        present(alertController, animated: true) {
+            self.pickerView!.frame.size.width = alertController.view.frame.width
+        }
+    }
 
     // MARK: Actions
 
-    @IBAction func pickAnImageFromCameraAction(_ sender: Any) {
+    @IBAction func showFontSelector(_ sender: Any?) {
+        fontSelector.loadFonts {
+            self.presentPickerView()
+        }
+    }
+
+    @IBAction func pickAnImageFromCameraAction(_ sender: Any?) {
         presentImagePickerController(forSource: .camera)
     }
 
-    @IBAction func pickAnImageFromAlbumAction(_ sender: Any) {
+    @IBAction func pickAnImageFromAlbumAction(_ sender: Any?) {
         presentImagePickerController(forSource: .photoLibrary)
     }
 
-    @IBAction func shareAction(_ sender: Any) {
+    @IBAction func shareAction(_ sender: Any?) {
         memedImage = generateMemedImage()
         let activityViewController = UIActivityViewController(activityItems: [memedImage!], applicationActivities: nil)
         activityViewController.excludedActivityTypes = [UIActivityType.saveToCameraRoll]
@@ -133,7 +170,7 @@ class ViewController: UIViewController {
         })
     }
 
-    @IBAction func cancelAction(_ sender: Any) {
+    @IBAction func cancelAction(_ sender: Any?) {
         imagePickerView.image = nil
 
         defaultTextSetup()
@@ -176,14 +213,6 @@ class ViewController: UIViewController {
         }
         return 0
     }
-
-    // MARK: Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "settingsSegue" {
-            let settingsController = segue.destination as? SettingsTableViewController
-            settingsController?.delegate = self
-        }
-    }
 }
 
 // MARK: UITextFieldDelegate
@@ -214,12 +243,13 @@ extension ViewController: UINavigationControllerDelegate, UIImagePickerControlle
     }
 }
 
-// MARK: SettingsTableViewControllerDelegate
-extension ViewController: SettingsTableViewControllerDelegate {
-    func didSelect(font: UIFont?) {
-        if let font = font {
-            topTextField.font = font
-            botTextField.font = font
+// MARK: FontSelectorDelegate
+extension ViewController: FontSelectorDelegate {
+    func pickerViewDidSelect(font: UIFont?) {
+        guard let font = font else {
+            return
         }
+        topTextField.font = font
+        botTextField.font = font
     }
 }

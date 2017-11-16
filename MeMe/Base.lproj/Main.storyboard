@@ -36,9 +36,9 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="G80-GN-82q"/>
-                                    <barButtonItem image="settings" id="GWH-oX-gwj">
+                                    <barButtonItem image="font" id="GWH-oX-gwj">
                                         <connections>
-                                            <segue destination="gse-g3-1WS" kind="presentation" identifier="settingsSegue" id="tkm-eP-she"/>
+                                            <action selector="showFontSelector:" destination="BYZ-38-t0r" id="AA7-4g-pLl"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -79,7 +79,7 @@
                                 </items>
                             </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="rLV-1q-zyH" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="3fG-b0-bWX"/>
                             <constraint firstItem="pXE-ML-v6a" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="9aU-Jl-L6d"/>
@@ -112,18 +112,10 @@
             </objects>
             <point key="canvasLocation" x="38.23088455772114" y="32.799999999999997"/>
         </scene>
-        <!--SettingsTableViewController-->
-        <scene sceneID="o8I-bF-2ev">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Settings" referencedIdentifier="SettingsTableViewController" id="gse-g3-1WS" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xrS-Hd-0hV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="682" y="-255"/>
-        </scene>
     </scenes>
     <resources>
         <image name="albums" width="30" height="30"/>
         <image name="cancel" width="30" height="30"/>
-        <image name="settings" width="30" height="30"/>
+        <image name="font" width="25" height="25"/>
     </resources>
 </document>
