@@ -6,33 +6,34 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Me Me View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="MeMeViewController" customModule="MeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gyd-TU-A9w">
-                                <rect key="frame" x="0.0" y="20" width="375" height="627"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hZO-GB-L20">
+                                <rect key="frame" x="0.0" y="0.0" width="374" height="667"/>
                             </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pXE-ML-v6a">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem systemItem="camera" id="SrC-YX-VPo">
+                                    <barButtonItem tag="1" systemItem="camera" id="SrC-YX-VPo">
                                         <connections>
-                                            <action selector="pickAnImageFromCameraAction:" destination="BYZ-38-t0r" id="yzP-D1-Nnd"/>
+                                            <action selector="pickAnImageAction:" destination="BYZ-38-t0r" id="3eL-NZ-0GR"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="CYC-4v-hPD"/>
                                     <barButtonItem image="albums" id="Rwm-no-eMm">
                                         <connections>
-                                            <action selector="pickAnImageFromAlbumAction:" destination="BYZ-38-t0r" id="seV-F2-p0L"/>
+                                            <action selector="pickAnImageAction:" destination="BYZ-38-t0r" id="yVO-2q-cfy"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="G80-GN-82q"/>
@@ -43,8 +44,8 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xdY-zd-bko">
-                                <rect key="frame" x="182.5" y="68" width="9" height="21"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="top" textAlignment="center" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="xdY-zd-bko">
+                                <rect key="frame" x="16" y="68" width="343" height="21"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -52,8 +53,8 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="hPv-ll-5CT"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PpC-oB-w3D">
-                                <rect key="frame" x="183" y="578" width="9" height="21"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bottom" textAlignment="center" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="PpC-oB-w3D">
+                                <rect key="frame" x="16" y="578" width="343" height="21"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -83,17 +84,21 @@
                         <constraints>
                             <constraint firstItem="rLV-1q-zyH" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="3fG-b0-bWX"/>
                             <constraint firstItem="pXE-ML-v6a" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="9aU-Jl-L6d"/>
-                            <constraint firstItem="Gyd-TU-A9w" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Emd-TK-Bgt"/>
+                            <constraint firstItem="PpC-oB-w3D" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="CPn-Q7-R0R"/>
                             <constraint firstItem="pXE-ML-v6a" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="F9N-nQ-ama"/>
-                            <constraint firstItem="Gyd-TU-A9w" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FDW-OI-3ae"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PpC-oB-w3D" secondAttribute="trailing" id="FyC-Ut-HvS"/>
+                            <constraint firstItem="xdY-zd-bko" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="L2t-AA-rME"/>
+                            <constraint firstItem="hZO-GB-L20" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Lxp-wH-9Br"/>
+                            <constraint firstItem="hZO-GB-L20" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="MEZ-qf-cwK"/>
                             <constraint firstItem="PpC-oB-w3D" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Muz-Qi-9IC"/>
                             <constraint firstItem="rLV-1q-zyH" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="S2o-29-fna"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xdY-zd-bko" secondAttribute="trailing" id="WaS-wz-vML"/>
+                            <constraint firstItem="hZO-GB-L20" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="YtJ-hF-B9X"/>
                             <constraint firstItem="rLV-1q-zyH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ZfB-y0-YPc"/>
                             <constraint firstItem="pXE-ML-v6a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="h4Q-tf-4UK"/>
                             <constraint firstItem="xdY-zd-bko" firstAttribute="top" secondItem="rLV-1q-zyH" secondAttribute="bottom" constant="24" id="j4P-IS-FfV"/>
                             <constraint firstItem="pXE-ML-v6a" firstAttribute="top" secondItem="PpC-oB-w3D" secondAttribute="bottom" constant="24" id="sDN-dC-U1V"/>
-                            <constraint firstItem="Gyd-TU-A9w" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="sfC-ld-djm"/>
-                            <constraint firstItem="Gyd-TU-A9w" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ubE-AD-0t2"/>
+                            <constraint firstItem="hZO-GB-L20" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="udK-db-DxK"/>
                             <constraint firstItem="xdY-zd-bko" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wg3-Fc-CyZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -101,7 +106,7 @@
                     <connections>
                         <outlet property="botTextField" destination="PpC-oB-w3D" id="GHa-fE-7g7"/>
                         <outlet property="cameraButton" destination="SrC-YX-VPo" id="rrI-LC-keS"/>
-                        <outlet property="imagePickerView" destination="Gyd-TU-A9w" id="1WN-kr-bwu"/>
+                        <outlet property="imagePickerView" destination="hZO-GB-L20" id="RnV-d1-GwK"/>
                         <outlet property="navigationBar" destination="rLV-1q-zyH" id="0gG-JJ-O2R"/>
                         <outlet property="shareButton" destination="ZGO-ha-XUs" id="QRm-Zk-U6X"/>
                         <outlet property="toolbar" destination="pXE-ML-v6a" id="kVv-bn-pMq"/>
@@ -110,7 +115,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="38.23088455772114" y="32.799999999999997"/>
+            <point key="canvasLocation" x="37.600000000000001" y="31.934032983508249"/>
         </scene>
     </scenes>
     <resources>

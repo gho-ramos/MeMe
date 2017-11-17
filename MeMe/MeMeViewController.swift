@@ -24,6 +24,7 @@ class MeMeViewController: UIViewController {
 
     fileprivate var pickerView: UIPickerView?
     fileprivate let fontSelector = FontSelector()
+    fileprivate let textFieldDelegate = TextDelegate()
     fileprivate struct FieldText {
         static let Top = "TOP"
         static let Bottom = "BOTTOM"
@@ -34,6 +35,8 @@ class MeMeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        defaultUIConfig()
+
         fontSelector.delegate = self
     }
 
@@ -43,8 +46,6 @@ class MeMeViewController: UIViewController {
         subscribeToKeyboardNotifications()
 
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-
-        defaultUIConfig()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -64,8 +65,9 @@ class MeMeViewController: UIViewController {
         ]
 
         textField.text = text
-        textField.textAlignment = .center
+        textField.delegate = textFieldDelegate
         textField.defaultTextAttributes = attributes
+        textField.textAlignment = .center
     }
 
     fileprivate func defaultUIConfig() {
@@ -84,8 +86,8 @@ class MeMeViewController: UIViewController {
         let memedImage: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        navigationBar.isHidden = true
-        toolbar.isHidden = true
+        navigationBar.isHidden = false
+        toolbar.isHidden = false
 
         return memedImage
     }
@@ -193,7 +195,9 @@ class MeMeViewController: UIViewController {
     }
 
     @objc func keyboardWillShow(_ notification: Notification) {
-        view.frame.origin.y = -getKeyboardHeight(from: notification)
+        if !topTextField.isFirstResponder {
+            view.frame.origin.y = -getKeyboardHeight(from: notification)
+        }
     }
 
     @objc func keyboardWillHide(_ notification: Notification) {
@@ -220,22 +224,9 @@ extension MeMeViewController: UINavigationControllerDelegate, UIImagePickerContr
             imagePickerView.image = image
             imagePickerView.contentMode = .scaleAspectFit
             picker.dismiss(animated: true, completion: {
-
+                self.shareButton.isEnabled = true
             })
         }
-    }
-}
-
-// MARK: UITextFieldDelegate
-
-extension MeMeViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.text = ""
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
 }
 
