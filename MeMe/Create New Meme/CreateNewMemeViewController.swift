@@ -1,5 +1,5 @@
 //
-//  MeMeViewController.swift
+//  CreateNewMemeViewController.swift
 //  MeMe
 //
 //  Created by Guilherme Ramos on 16/11/2017.
@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class MeMeViewController: UIViewController {
+class CreateNewMemeViewController: BaseViewController {
 
     // MARK: Properties
     override var prefersStatusBarHidden: Bool { return true }
@@ -24,13 +24,20 @@ class MeMeViewController: UIViewController {
 
     fileprivate var pickerView: UIPickerView?
     fileprivate let fontSelector = FontSelector()
-    fileprivate let textFieldDelegate = TextDelegate()
+    fileprivate let textHandler = TextDelegate()
     fileprivate struct FieldText {
         static let Top = "TOP"
         static let Bottom = "BOTTOM"
     }
 
     // MARK: Lifecycle
+
+    class func instance() -> Self {
+        return instantiateFromStoryboard(
+            name: "Create",
+            identifier: String(describing: CreateNewMemeViewController.self)
+        )
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +72,7 @@ class MeMeViewController: UIViewController {
         ]
 
         textField.text = text
-        textField.delegate = textFieldDelegate
+        textField.delegate = textHandler
         textField.defaultTextAttributes = attributes
         textField.textAlignment = .center
     }
@@ -93,12 +100,17 @@ class MeMeViewController: UIViewController {
     }
 
     fileprivate func save(_ memedImage: UIImage?) {
-        _ = Meme(
+        let meme = Meme(
             topText: topTextField.text!,
             bottomText: botTextField.text!,
             originalImage: imagePickerView.image!,
             memedImage: memedImage!
         )
+
+        let applicationDelegate = UIApplication.shared.delegate as? AppDelegate
+        applicationDelegate?.memes.append(meme)
+
+        dismiss(animated: true, completion: nil)
     }
 
     fileprivate func presentImagePickerController(forSource type: UIImagePickerControllerSourceType) {
@@ -158,6 +170,7 @@ class MeMeViewController: UIViewController {
     }
 
     @IBAction func shareAction(_ sender: Any?) {
+        view.endEditing(true)
         if let memedImage = generateMemedImage() {
             let activityController = UIActivityViewController(
                 activityItems: [memedImage],
@@ -174,6 +187,7 @@ class MeMeViewController: UIViewController {
 
     @IBAction func cancelAction(_ sender: Any?) {
         defaultUIConfig()
+        dismiss(animated: true, completion: nil)
     }
 
     // MARK: Notifications
@@ -217,7 +231,7 @@ class MeMeViewController: UIViewController {
 
 // MARK: UINavigationControllerDelegate, UIImagePickerControllerDelegate
 
-extension MeMeViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+extension CreateNewMemeViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     // Handling the image after selecting from photoLibrary or taking a picture
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
@@ -230,7 +244,7 @@ extension MeMeViewController: UINavigationControllerDelegate, UIImagePickerContr
     }
 }
 
-extension MeMeViewController: FontSelectorDelegate {
+extension CreateNewMemeViewController: FontSelectorDelegate {
     func pickerViewDidSelect(font: UIFont?) {
         if let font = font {
             topTextField.font = font
