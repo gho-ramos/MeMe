@@ -45,7 +45,7 @@ extension SentMemesTableViewController: UITableViewDataSource, UITableViewDelega
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailController = MemeDetailViewController.instance(with: memes[indexPath.row].memedImage)
+        let detailController = MemeDetailViewController.instance(with: indexPath.row)
         navigationController?.pushViewController(detailController, animated: true)
     }
 }

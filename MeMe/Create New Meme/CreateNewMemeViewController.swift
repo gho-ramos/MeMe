@@ -14,6 +14,9 @@ class CreateNewMemeViewController: BaseViewController {
     // MARK: Properties
     override var prefersStatusBarHidden: Bool { return true }
 
+    var meme: Meme?
+    weak var delegate: MemeDetailViewControllerDelegate?
+
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
@@ -78,10 +81,17 @@ class CreateNewMemeViewController: BaseViewController {
     }
 
     fileprivate func defaultUIConfig() {
-        imagePickerView.image = nil
-        shareButton.isEnabled = false
-        config(topTextField, with: FieldText.Top)
-        config(botTextField, with: FieldText.Bottom)
+        if let meme = meme {
+            imagePickerView.image = meme.originalImage
+            shareButton.isEnabled = true
+            config(topTextField, with: meme.topText)
+            config(botTextField, with: meme.bottomText)
+        } else {
+            imagePickerView.image = nil
+            shareButton.isEnabled = false
+            config(topTextField, with: FieldText.Top)
+            config(botTextField, with: FieldText.Bottom)
+        }
     }
 
     fileprivate func generateMemedImage() -> UIImage? {
@@ -100,7 +110,7 @@ class CreateNewMemeViewController: BaseViewController {
     }
 
     fileprivate func save(_ memedImage: UIImage?) {
-        let meme = Meme(
+        meme = Meme(
             topText: topTextField.text!,
             bottomText: botTextField.text!,
             originalImage: imagePickerView.image!,
@@ -108,7 +118,14 @@ class CreateNewMemeViewController: BaseViewController {
         )
 
         let applicationDelegate = UIApplication.shared.delegate as? AppDelegate
-        applicationDelegate?.memes.append(meme)
+        applicationDelegate?.memes.append(meme!)
+        if let delegate = delegate {
+            // Since we're using the same viewController to create and edit a meme
+            // We'll check for the delegate as a condition for edits
+            // and send back the editted meme to our detail view controller
+            delegate.didFinishEditing(meme: meme)
+        } else {
+        }
 
         dismiss(animated: true, completion: nil)
     }
@@ -234,12 +251,13 @@ class CreateNewMemeViewController: BaseViewController {
 extension CreateNewMemeViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     // Handling the image after selecting from photoLibrary or taking a picture
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             imagePickerView.image = image
             imagePickerView.contentMode = .scaleAspectFit
-            picker.dismiss(animated: true, completion: {
+            picker.dismiss(animated: true) {
                 self.shareButton.isEnabled = true
-            })
+            }
         }
     }
 }
