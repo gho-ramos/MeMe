@@ -18,10 +18,7 @@ class SentMemesTableViewController: BaseViewController {
             tableView.reloadData()
         }
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let applicationDelegate = UIApplication.shared.delegate as? AppDelegate
