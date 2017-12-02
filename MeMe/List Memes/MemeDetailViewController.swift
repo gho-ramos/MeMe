@@ -32,10 +32,11 @@ class MemeDetailViewController: BaseViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-
+        super.viewWillAppear(animated)
         if let index = index {
             meme = applicationDelegate?.memes[index]
             imageView.image = meme?.memedImage
+            imageView.contentMode = .scaleAspectFit
         }
     }
 

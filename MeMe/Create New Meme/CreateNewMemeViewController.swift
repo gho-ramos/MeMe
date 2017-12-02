@@ -232,9 +232,7 @@ class CreateNewMemeViewController: BaseViewController {
     }
 
     @objc func keyboardWillHide(_ notification: Notification) {
-        if view.frame.origin.y < 0 {
-            view.frame.origin.y = 0
-        }
+        view.frame.origin.y = 0
     }
 
     func getKeyboardHeight(from notification: Notification) -> CGFloat {
